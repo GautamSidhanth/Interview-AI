@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { CalendarIcon } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import React from "react";
 
 type Interview = Doc<"interviews">;
 
@@ -13,7 +14,7 @@ function MeetingCard({ interview }: { interview: Interview }) {
   const { joinMeeting } = useMeetingActions();
 
   const status = getMeetingStatus(interview);
-  const formattedDate = format(new Date(interview.startTime), "EEEE, MMMM d · h:mm a");
+  const formattedDate = interview.startTime ? format(new Date(interview.startTime), "EEEE, MMMM d · h:mm a") : "No date set";
 
   return (
     <Card>
@@ -56,4 +57,5 @@ function MeetingCard({ interview }: { interview: Interview }) {
     </Card>
   );
 }
-export default MeetingCard;
+
+export default React.memo(MeetingCard);
